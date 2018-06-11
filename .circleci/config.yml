@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build:
+  build-app:
     working_directory: ~/code
     docker:
       - image: circleci/android:api-27-alpha
@@ -20,11 +20,11 @@ jobs:
       - run:
           name: Build Application
           command: ./gradlew clean assembleDebug
-  test:
+  test-app:
     - run:
         ame: Android Lint
         command: ./gradlew lintDebug
-  deploy:
+  deploy-app:
     - store_artifacts:
         path: app/build/reports
         destination: reports
@@ -34,10 +34,10 @@ workflows:
   version: 2
   build-and-test-deploy:
     jobs:
-      - build
-      - test:
+      - build-app
+      - test-app:
           requires:
-            - build
-      - deploy:
+            - build-app
+      - deploy-app:
           requires:
-            - test
+            - test-app
