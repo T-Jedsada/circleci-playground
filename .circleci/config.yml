@@ -30,13 +30,14 @@ jobs:
         destination: reports
     - store_test_results:
         path: app/build/test-results
-
 workflows:
   version: 2
-  build-deploy:
+  build-and-test-deploy:
     jobs:
       - build
-      - test
-      - deploy:
+      - test:
           requires:
             - build
+      - deploy:
+          requires:
+            - test
