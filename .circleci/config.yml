@@ -19,17 +19,11 @@ jobs:
       - run:
           name: Build Application
           command: ./gradlew clean assembleDebug
-  test:
-    - run:
-        name: Android Lint
-        command: ./gradlew lintDebug
 workflows:
   version: 2
   build_and_test:
     jobs:
       - build
-      - test
-
 #jobs:
 #  build-app:
 #    working_directory: ~/code
