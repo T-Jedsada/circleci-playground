@@ -21,11 +21,6 @@ jobs:
           command: ./gradlew clean assembleDebug
 
   test-app:
-    working_directory: ~/code
-    docker:
-      - image: circleci/android:api-27-alpha
-    environment:
-      JVM_OPTS: -Xmx3200m
     steps:
       - checkout
       - restore_cache:
@@ -39,4 +34,6 @@ workflows:
   build-and-test-deploy:
     jobs:
       - build-app
-      - test-app
+      - test-app:
+          requires:
+            - build-app
