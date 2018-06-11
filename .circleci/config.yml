@@ -1,4 +1,5 @@
 version: 2
+
 jobs:
   build-app:
     working_directory: ~/code
@@ -20,16 +21,19 @@ jobs:
       - run:
           name: Build Application
           command: ./gradlew clean assembleDebug
+
   test-app:
     - run:
-        ame: Android Lint
+        name: Android Lint
         command: ./gradlew lintDebug
+
   deploy-app:
     - store_artifacts:
         path: app/build/reports
         destination: reports
     - store_test_results:
         path: app/build/test-results
+
 workflows:
   version: 2
   build-and-test-deploy:
