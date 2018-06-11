@@ -1,7 +1,8 @@
 version: 2
 
+version: 2
 jobs:
-  build-app:
+  build:
     working_directory: ~/code
     docker:
       - image: circleci/android:api-27-alpha
@@ -21,23 +22,55 @@ jobs:
       - run:
           name: Build Application
           command: ./gradlew clean assembleDebug
-
-  test-app:
+  test:
     - run:
         name: Android Lint
         command: ./gradlew lintDebug
-
-  deploy-app:
-    - store_artifacts:
-        path: app/build/reports
-        destination: reports
-    - store_test_results:
-        path: app/build/test-results
-
 workflows:
   version: 2
-  build-and-test-deploy:
+  build_and_test:
     jobs:
-      - build-app
-      - test-app
-      - deploy-app
+      - build
+      - tes
+
+#jobs:
+#  build-app:
+#    working_directory: ~/code
+#    docker:
+#      - image:
+#    environment:
+#      JVM_OPTS: -Xmx3200m
+#    steps:
+#      - checkout
+#      - restore_cache:
+#          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
+#      - run:
+#          name: Download Dependencies
+#          command: ./gradlew androidDependencies
+#      - save_cache:
+#          paths:
+#            - ~/.gradle
+#          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
+#      - run:
+#          name: Build Application
+#          command: ./gradlew clean assembleDebug
+#
+#  test-app:
+#    - run:
+#        name: Android Lint
+#        command: ./gradlew lintDebug
+#
+#  deploy-app:
+#    - store_artifacts:
+#        path: app/build/reports
+#        destination: reports
+#    - store_test_results:
+#        path: app/build/test-results
+#
+#workflows:
+#  version: 2
+#  build-and-test-deploy:
+#    jobs:
+#      - build-app
+#      - test-app
+#      - deploy-app
