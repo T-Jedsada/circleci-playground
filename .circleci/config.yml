@@ -21,6 +21,7 @@ jobs:
           name: Build Application
           command: ./gradlew clean assembleDebug
 
+version: 2
 jobs1:
   test:
     working_directory: ~/code
